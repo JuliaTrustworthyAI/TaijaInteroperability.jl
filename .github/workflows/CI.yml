@@ -2,13 +2,9 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
     tags: ['*']
   pull_request:
-  workflow_dispatch:
-concurrency:
-  # Skip intermediate builds: always.
-  # Cancel intermediate builds: only if it is a pull request build.
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 jobs:
@@ -19,7 +15,8 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - '1.6'
+          - '1.7'
+          - '1.8'
           - '1.9'
           - 'nightly'
         os:
