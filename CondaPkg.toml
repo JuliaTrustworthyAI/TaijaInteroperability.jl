@@ -1,4 +1,4 @@
-channels = ["torch", "pytorch", "conda-forge"]
+channels = ["pytorch", "conda-forge"]
 
 [deps]
 numpy = ""
