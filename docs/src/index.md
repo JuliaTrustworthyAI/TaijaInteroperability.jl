@@ -4,7 +4,7 @@ CurrentModule = TaijaInteroperability
 
 # TaijaInteroperability
 
-Documentation for [TaijaInteroperability](https://github.com/a/TaijaInteroperability.jl).
+Documentation for [TaijaInteroperability](https://github.com/JuliaTrustworthyAI/TaijaInteroperability.jl).
 
 ```@index
 ```
