@@ -6,11 +6,11 @@ DocMeta.setdocmeta!(TaijaInteroperability, :DocTestSetup, :(using TaijaInteroper
 makedocs(;
     modules=[TaijaInteroperability],
     authors="Patrick Altmeyer",
-    repo="https://github.com/a/TaijaInteroperability.jl/blob/{commit}{path}#{line}",
+    repo="https://github.com/JuliaTrustworthyAI/TaijaInteroperability.jl/blob/{commit}{path}#{line}",
     sitename="TaijaInteroperability.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://a.github.io/TaijaInteroperability.jl",
+        canonical="https://JuliaTrustworthyAI.github.io/TaijaInteroperability.jl",
         edit_link="master",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/a/TaijaInteroperability.jl",
+    repo="github.com/JuliaTrustworthyAI/TaijaInteroperability.jl",
     devbranch="master",
 )
