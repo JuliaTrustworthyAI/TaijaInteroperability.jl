@@ -18,4 +18,5 @@ PyTorchModelExt = "PythonCall"
 RTorchModelExt = "RCall"
 
 [compat]
+PackageExtensionCompat = "1"
 julia = "1.9"
