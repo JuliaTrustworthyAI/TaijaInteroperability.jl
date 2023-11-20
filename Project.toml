@@ -1,7 +1,7 @@
 name = "TaijaInteroperability"
 uuid = "8949ac52-83c2-4a90-b175-e52cde45fddb"
 authors = ["Patrick Altmeyer"]
-version = "1.0.0-DEV"
+version = "0.0.1"
 
 [deps]
 CondaPkg = "992eb4ea-22a4-4c89-a5bb-47a3300528ab"
