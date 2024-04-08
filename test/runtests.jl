@@ -1,6 +1,7 @@
 using CounterfactualExplanations
 using CounterfactualExplanations.DataPreprocessing
 using CounterfactualExplanations.Models
+using LaplaceRedux
 using Printf
 using PythonCall
 using Random
