@@ -132,7 +132,7 @@ function train_and_save_pytorch_model(
     NeuralNetwork = neural_network_class.NeuralNetwork
     model = NeuralNetwork()
 
-    x_python, y_python = CounterfactualExplanations.DataPreprocessing.preprocess_python_data(
+    x_python, y_python = preprocess_python_data(
         data
     )
 
