@@ -6,8 +6,8 @@ Loads synthetic data, models, and generators.
 function _load_synthetic()
     # Data:
     data_sets = Dict(
-        :classification_binary => CounterfactualData(load_linearly_separable()...),
-        :classification_multi => CounterfactualData(load_multi_class()...),
+        :classification_binary => CounterfactualData(TaijaData.load_linearly_separable()...),
+        :classification_multi => CounterfactualData(TaijaData.load_multi_class()...),
     )
     # Models
     synthetic = Dict()
