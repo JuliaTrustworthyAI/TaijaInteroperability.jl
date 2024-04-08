@@ -19,7 +19,7 @@ RTorchModelExt = "RCall"
 
 [compat]
 CondaPkg = "0.2"
-CounterfactualExplanations = "0.1"
+CounterfactualExplanations = "0.1, 1"
 Flux = "0.12, 0.13, 0.14"
 julia = "1.7, 1.8, 1.9"
 PackageExtensionCompat = "1"
