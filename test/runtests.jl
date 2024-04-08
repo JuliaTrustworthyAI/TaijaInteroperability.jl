@@ -1,10 +1,10 @@
 using CounterfactualExplanations
-using CounterfactualExplanations.Data
 using CounterfactualExplanations.DataPreprocessing
 using CounterfactualExplanations.Models
 using Printf
 using PythonCall
 using Random
+using TaijaData
 using TaijaInteroperability
 using Test
 
