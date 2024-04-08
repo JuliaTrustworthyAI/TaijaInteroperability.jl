@@ -1,5 +1,5 @@
 """
-    CounterfactualExplanations.pytorch_model_loader(model_path::String, model_file::String, class_name::String, pickle_path::String)
+    pytorch_model_loader(model_path::String, model_file::String, class_name::String, pickle_path::String)
 
 Loads a previously saved PyTorch model.
 
@@ -44,7 +44,7 @@ function TaijaInteroperability.pytorch_model_loader(
 end
 
 """
-    CounterfactualExplanations.preprocess_python_data(data::CounterfactualData)
+    preprocess_python_data(data::CounterfactualData)
 
 Converts a `CounterfactualData` object to an input tensor and a label tensor.
 

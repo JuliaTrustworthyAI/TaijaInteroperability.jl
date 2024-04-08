@@ -19,14 +19,14 @@ if VERSION >= v"1.8"
                 # Create and save model in the model_path directory
                 create_new_pytorch_model(data, model_path)
                 train_and_save_pytorch_model(data, model_location, pickle_path)
-                model_loaded = Models.pytorch_model_loader(
+                model_loaded = pytorch_model_loader(
                     model_location, model_file, class_name, pickle_path
                 )
 
-                model_pytorch = Models.PyTorchModel(model_loaded, data.likelihood)
+                model_pytorch = PyTorchModel(model_loaded, data.likelihood)
 
                 @testset "Test for errors" begin
-                    @test_throws ArgumentError Models.PyTorchModel(
+                    @test_throws ArgumentError PyTorchModel(
                         model_loaded, :regression
                     )
                 end
@@ -67,10 +67,10 @@ if VERSION >= v"1.8"
                 train_and_save_pytorch_model(
                     counterfactual_data, model_location, pickle_path
                 )
-                model_loaded = Models.pytorch_model_loader(
+                model_loaded = pytorch_model_loader(
                     model_location, model_file, class_name, pickle_path
                 )
-                M = Models.PyTorchModel(model_loaded, counterfactual_data.likelihood)
+                M = PyTorchModel(model_loaded, counterfactual_data.likelihood)
 
                 # Randomly selected factual:
                 Random.seed!(123)

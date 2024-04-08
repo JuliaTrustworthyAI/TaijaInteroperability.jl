@@ -8,7 +8,7 @@ The gradients are calculated through PyTorch using PythonCall.jl.
 
 # Arguments
 - `generator::AbstractGradientBasedGenerator`: The generator object that is used to generate the counterfactual explanation.
-- `M::Models.PyTorchModel`: The PyTorch model for which the counterfactual is generated.
+- `M::PyTorchModel`: The PyTorch model for which the counterfactual is generated.
 - `ce::AbstractCounterfactualExplanation`: The counterfactual explanation object for which the gradient is calculated.
 
 # Returns
