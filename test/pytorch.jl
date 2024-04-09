@@ -1,3 +1,5 @@
+using TaijaInteroperability
+
 model_file = "neural_network_class"
 class_name = "NeuralNetwork"
 model_location = "$(pwd())"
@@ -19,17 +21,17 @@ if VERSION >= v"1.8"
                 # Create and save model in the model_path directory
                 create_new_pytorch_model(data, model_path)
                 train_and_save_pytorch_model(data, model_location, pickle_path)
-                model_loaded = pytorch_model_loader(
+                model_loaded = TaijaInteroperability.pytorch_model_loader(
                     model_location,
                     model_file,
                     class_name,
                     pickle_path,
                 )
 
-                model_pytorch = PyTorchModel(model_loaded, data.likelihood)
+                model_pytorch = TaijaInteroperability.PyTorchModel(model_loaded, data.likelihood)
 
                 @testset "Test for errors" begin
-                    @test_throws ArgumentError PyTorchModel(model_loaded, :regression)
+                    @test_throws ArgumentError TaijaInteroperability.PyTorchModel(model_loaded, :regression)
                 end
 
                 @testset "$name" begin
@@ -70,13 +72,13 @@ if VERSION >= v"1.8"
                     model_location,
                     pickle_path,
                 )
-                model_loaded = pytorch_model_loader(
+                model_loaded = TaijaInteroperability.pytorch_model_loader(
                     model_location,
                     model_file,
                     class_name,
                     pickle_path,
                 )
-                M = PyTorchModel(model_loaded, counterfactual_data.likelihood)
+                M = TaijaInteroperability.PyTorchModel(model_loaded, counterfactual_data.likelihood)
 
                 # Randomly selected factual:
                 Random.seed!(123)
