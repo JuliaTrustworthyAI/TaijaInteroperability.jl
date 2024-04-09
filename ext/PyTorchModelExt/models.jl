@@ -14,7 +14,7 @@ struct PyTorchModel <: AbstractDifferentiableModel
         else
             throw(
                 ArgumentError(
-                    "`type` should be in `[:classification_binary,:classification_multi]`"
+                    "`type` should be in `[:classification_binary,:classification_multi]`",
                 ),
             )
         end

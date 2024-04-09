@@ -20,15 +20,16 @@ if VERSION >= v"1.8"
                 create_new_pytorch_model(data, model_path)
                 train_and_save_pytorch_model(data, model_location, pickle_path)
                 model_loaded = pytorch_model_loader(
-                    model_location, model_file, class_name, pickle_path
+                    model_location,
+                    model_file,
+                    class_name,
+                    pickle_path,
                 )
 
                 model_pytorch = PyTorchModel(model_loaded, data.likelihood)
 
                 @testset "Test for errors" begin
-                    @test_throws ArgumentError PyTorchModel(
-                        model_loaded, :regression
-                    )
+                    @test_throws ArgumentError PyTorchModel(model_loaded, :regression)
                 end
 
                 @testset "$name" begin
@@ -65,24 +66,34 @@ if VERSION >= v"1.8"
                 # Create and save model in the model_path directory
                 create_new_pytorch_model(counterfactual_data, model_path)
                 train_and_save_pytorch_model(
-                    counterfactual_data, model_location, pickle_path
+                    counterfactual_data,
+                    model_location,
+                    pickle_path,
                 )
                 model_loaded = pytorch_model_loader(
-                    model_location, model_file, class_name, pickle_path
+                    model_location,
+                    model_file,
+                    class_name,
+                    pickle_path,
                 )
                 M = PyTorchModel(model_loaded, counterfactual_data.likelihood)
 
                 # Randomly selected factual:
                 Random.seed!(123)
                 x = DataPreprocessing.select_factual(
-                    counterfactual_data, Random.rand(1:size(X, 2))
+                    counterfactual_data,
+                    Random.rand(1:size(X, 2)),
                 )
                 # Choose target:
                 y = Models.predict_label(M, counterfactual_data, x)
                 target = get_target(counterfactual_data, y[1])
                 # Single sample:
                 counterfactual = CounterfactualExplanations.generate_counterfactual(
-                    x, target, counterfactual_data, M, generator
+                    x,
+                    target,
+                    counterfactual_data,
+                    M,
+                    generator,
                 )
 
                 @testset "Predetermined outputs" begin
@@ -91,10 +102,10 @@ if VERSION >= v"1.8"
                     end
                     @test counterfactual.target == target
                     @test counterfactual.x == x &&
-                        CounterfactualExplanations.factual(counterfactual) == x
+                          CounterfactualExplanations.factual(counterfactual) == x
                     @test CounterfactualExplanations.factual_label(counterfactual) == y
                     @test CounterfactualExplanations.factual_probability(counterfactual) ==
-                        probs(M, x)
+                          probs(M, x)
                 end
 
                 @testset "Convergence" begin
@@ -103,21 +114,25 @@ if VERSION >= v"1.8"
                         # Threshold reached if converged:
                         γ = 0.9
                         max_iter = 1000
+                        conv =
+                            CounterfactualExplanations.Convergence.DecisionThresholdConvergence(
+                                γ,
+                                max_iter,
+                            )
                         counterfactual = CounterfactualExplanations.generate_counterfactual(
                             x,
                             target,
                             counterfactual_data,
                             M,
                             generator;
-                            max_iter=max_iter,
-                            decision_threshold=γ,
+                            convergence = conv,
                         )
                         using CounterfactualExplanations: counterfactual_probability
                         @test !CounterfactualExplanations.converged(counterfactual) ||
-                            CounterfactualExplanations.target_probs(counterfactual)[1] >=
+                              CounterfactualExplanations.target_probs(counterfactual)[1] >=
                               γ # either not converged or threshold reached
                         @test !CounterfactualExplanations.converged(counterfactual) ||
-                            length(path(counterfactual)) <= max_iter
+                              length(path(counterfactual)) <= max_iter
                     end
 
                     @testset "Trivial case (already in target class)" begin
@@ -126,18 +141,22 @@ if VERSION >= v"1.8"
                         y = Models.predict_label(M, counterfactual_data, x)
                         target = y[1]
                         γ = minimum([1 / length(counterfactual_data.y_levels), 0.5])
+                        conv =
+                            CounterfactualExplanations.Convergence.DecisionThresholdConvergence(
+                                γ,
+                            )
                         counterfactual = CounterfactualExplanations.generate_counterfactual(
                             x,
                             target,
                             counterfactual_data,
                             M,
                             generator;
-                            decision_threshold=γ,
-                            initialization=:identity,
+                            convergence = conv,
+                            initialization = :identity,
                         )
                         x′ = CounterfactualExplanations.decode_state(counterfactual)
                         if counterfactual.generator.latent_space == false
-                            @test isapprox(counterfactual.x, x′; atol=1e-6)
+                            @test isapprox(counterfactual.x, x′; atol = 1e-6)
                             @test CounterfactualExplanations.converged(counterfactual)
                             @test CounterfactualExplanations.terminated(counterfactual)
                         end

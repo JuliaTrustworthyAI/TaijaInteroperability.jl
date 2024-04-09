@@ -6,7 +6,8 @@ Loads synthetic data, models, and generators.
 function _load_synthetic()
     # Data:
     data_sets = Dict(
-        :classification_binary => CounterfactualData(TaijaData.load_linearly_separable()...),
+        :classification_binary =>
+            CounterfactualData(TaijaData.load_linearly_separable()...),
         :classification_multi => CounterfactualData(TaijaData.load_multi_class()...),
     )
     # Models
@@ -28,9 +29,8 @@ end
 Returns a target label that is different from the factual label.
 """
 function get_target(counterfactual_data::CounterfactualData, factual_label::RawTargetType)
-    target = rand(
-        counterfactual_data.y_levels[counterfactual_data.y_levels .!= factual_label]
-    )
+    target =
+        rand(counterfactual_data.y_levels[counterfactual_data.y_levels.!=factual_label])
     return target
 end
 
@@ -47,8 +47,8 @@ function _load_pretrained_models()
                 :ensemble => Models.load_mnist_ensemble(),
             ),
             :latent => Dict(
-                :vae_strong => Models.load_mnist_vae(; strong=true),
-                :vae_weak => Models.load_mnist_vae(; strong=false),
+                :vae_strong => Models.load_mnist_vae(; strong = true),
+                :vae_weak => Models.load_mnist_vae(; strong = false),
             ),
         ),
         :fashion_mnist => Dict(
@@ -57,8 +57,8 @@ function _load_pretrained_models()
                 :ensemble => Models.load_fashion_mnist_ensemble(),
             ),
             :latent => Dict(
-                :vae_strong => Models.load_fashion_mnist_vae(; strong=true),
-                :vae_weak => Models.load_fashion_mnist_vae(; strong=false),
+                :vae_strong => Models.load_fashion_mnist_vae(; strong = true),
+                :vae_weak => Models.load_fashion_mnist_vae(; strong = false),
             ),
         ),
     )
@@ -70,8 +70,8 @@ function _load_pretrained_models()
                 :ensemble => Models.load_cifar_10_ensemble(),
             ),
             :latent => Dict(
-                :vae_strong => Models.load_cifar_10_vae(; strong=true),
-                :vae_weak => Models.load_cifar_10_vae(; strong=false),
+                :vae_strong => Models.load_cifar_10_vae(; strong = true),
+                :vae_weak => Models.load_cifar_10_vae(; strong = false),
             ),
         )
     end
@@ -118,7 +118,9 @@ end
 Trains a PyTorch model and saves it to a pickle file.
 """
 function train_and_save_pytorch_model(
-    data::CounterfactualData, model_location::String, pickle_path::String
+    data::CounterfactualData,
+    model_location::String,
+    pickle_path::String,
 )
     sys = PythonCall.pyimport("sys")
 
@@ -132,15 +134,13 @@ function train_and_save_pytorch_model(
     NeuralNetwork = neural_network_class.NeuralNetwork
     model = NeuralNetwork()
 
-    x_python, y_python = preprocess_python_data(
-        data
-    )
+    x_python, y_python = preprocess_python_data(data)
 
-    optimizer = torch.optim.Adam(model.parameters(); lr=0.1)
+    optimizer = torch.optim.Adam(model.parameters(); lr = 0.1)
     loss_fun = torch.nn.BCEWithLogitsLoss()
 
     # Training
-    for _ in 1:100
+    for _ = 1:100
         # Compute prediction and loss:
         output = model(x_python).squeeze()
         sleep(1)
