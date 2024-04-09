@@ -1,7 +1,7 @@
 name = "TaijaInteroperability"
 uuid = "8949ac52-83c2-4a90-b175-e52cde45fddb"
 authors = ["Patrick Altmeyer"]
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 PackageExtensionCompat = "65ce6f38-6b18-4e1d-a461-8949797d7930"
