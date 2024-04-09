@@ -14,5 +14,6 @@ include("utils.jl")
 synthetic = _load_synthetic()
 
 @testset "TaijaInteroperability.jl" begin
+    include("aqua.jl")
     include("pytorch.jl")
 end
