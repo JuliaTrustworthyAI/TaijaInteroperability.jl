@@ -116,8 +116,8 @@ if VERSION >= v"1.8"
                         max_iter = 1000
                         conv =
                             CounterfactualExplanations.Convergence.DecisionThresholdConvergence(
-                                γ,
-                                max_iter,
+                                decision_threshold = γ,
+                                max_iter = max_iter,
                             )
                         counterfactual = CounterfactualExplanations.generate_counterfactual(
                             x,
@@ -143,7 +143,7 @@ if VERSION >= v"1.8"
                         γ = minimum([1 / length(counterfactual_data.y_levels), 0.5])
                         conv =
                             CounterfactualExplanations.Convergence.DecisionThresholdConvergence(
-                                γ,
+                                decision_threshold = γ,
                             )
                         counterfactual = CounterfactualExplanations.generate_counterfactual(
                             x,

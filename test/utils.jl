@@ -1,3 +1,5 @@
+using TaijaInteroperability
+
 """
     _load_synthetic()
 
@@ -134,7 +136,7 @@ function train_and_save_pytorch_model(
     NeuralNetwork = neural_network_class.NeuralNetwork
     model = NeuralNetwork()
 
-    x_python, y_python = preprocess_python_data(data)
+    x_python, y_python = TaijaInteroperability.preprocess_python_data(data)
 
     optimizer = torch.optim.Adam(model.parameters(); lr = 0.1)
     loss_fun = torch.nn.BCEWithLogitsLoss()
